@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>{{ site_title }} - opencv</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="{{ blog_url }}/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,16 +12,16 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">{{ site_title }} </a></h1>
+                <h1><a href="{{ blog_url }}/">{{ site_title }} </a></h1>
                 <nav><ul>
-                    <li><a href="/pages/About-me.html">About me</a></li>
-                    <li><a href="/category/misc.html">misc</a></li>
+                    <li><a href="{{ blog_url }}/pages/About-me.html">About me</a></li>
+                    <li><a href="{{ blog_url }}/category/misc.html">misc</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/Extracting-background-from-a-video-using-OpenCV-and-Python.html">Extracting background from a video using OpenCV and Python</a></h1>
+                    <h1 class="entry-title"><a href="{{ blog_url }}/Extracting-background-from-a-video-using-OpenCV-and-Python.html">Extracting background from a video using OpenCV and Python</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2016-01-09T00:44:00+01:00">
                 Published: Sat 09 January 2016
@@ -32,10 +32,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/ogurtsov.html">ogurtsov</a>
+                By                         <a class="url fn" href="{{ blog_url }}/author/ogurtsov.html">ogurtsov</a>
         </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
-<p>tags: <a href="/tag/opencv.html">opencv</a> <a href="/tag/python.html">python</a> </p>
+<p>In <a href="{{ blog_url }}/category/misc.html">misc</a>.</p>
+<p>tags: <a href="{{ blog_url }}/tag/opencv.html">opencv</a> <a href="{{ blog_url }}/tag/python.html">python</a> </p>
 </footer><!-- /.post-info --><p>Input video example:</p>
 <p><a href="http://www.youtube.com/watch?v=Jjj-5OQiT-0"><img alt="Video" src="http://img.youtube.com/vi/Jjj-5OQiT-0/0.jpg" /></a></p>
 <p>Result:</p>
@@ -72,7 +72,7 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/Vagrantfile-for-OpenCV-and-Python.html" rel="bookmark"
+                    <h1><a href="{{ blog_url }}/Vagrantfile-for-OpenCV-and-Python.html" rel="bookmark"
                            title="Permalink to Vagrantfile for OpenCV and Python">Vagrantfile for OpenCV and Python</a></h1>
                 </header>
 
@@ -87,10 +87,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/ogurtsov.html">ogurtsov</a>
+                By                         <a class="url fn" href="{{ blog_url }}/author/ogurtsov.html">ogurtsov</a>
         </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
-<p>tags: <a href="/tag/opencv.html">opencv</a> <a href="/tag/python.html">python</a> <a href="/tag/vagrant.html">vagrant</a> </p>
+<p>In <a href="{{ blog_url }}/category/misc.html">misc</a>.</p>
+<p>tags: <a href="{{ blog_url }}/tag/opencv.html">opencv</a> <a href="{{ blog_url }}/tag/python.html">python</a> <a href="{{ blog_url }}/tag/vagrant.html">vagrant</a> </p>
 </footer><!-- /.post-info -->                <p>I use the following script to create an Ubuntu 15.04 Vagrant box with OpenCV with Python bindings support:</p>
 <div class="highlight"><pre><span class="c1"># -*- mode: ruby -*-</span>
 <span class="c1"># vi: set ft=ruby :</span>
@@ -102,29 +102,12 @@
   <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="o">&lt;&lt;-</span><span class="no">SHELL</span>
 
 <span class="sh">    version ...</span></pre></div>
-                <a class="readmore" href="/Vagrantfile-for-OpenCV-and-Python.html">read more</a>
+                <a class="readmore" href="{{ blog_url }}/Vagrantfile-for-OpenCV-and-Python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
                 </section><!-- /#content -->
         <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
         </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
