@@ -21,14 +21,84 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://ogurtsov.github.io/blog/2016/Extracting-background-from-a-video-using-OpenCV-and-Python.html">Extracting background from a video using OpenCV and Python</a></h1>
+                    <h1 class="entry-title"><a href="http://ogurtsov.github.io/blog/2016/Vagrantfile-for-OpenCV-and-Python.html">Vagrantfile for OpenCV and Python</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2016-01-09T00:44:00+01:00">
-                Published: Sat 09 January 2016
+        <abbr class="published" title="2016-01-08T23:35:00+01:00">
+                Published: Fri 08 January 2016
         </abbr>
 		<br />
-        <abbr class="modified" title="2016-01-09T00:44:00+01:00">
-                Updated: Sat 09 January 2016
+        <abbr class="modified" title="2016-01-08T23:35:00+01:00">
+                Updated: Fri 08 January 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://ogurtsov.github.io/author/ogurtsov.html">ogurtsov</a>
+        </address>
+<p>In <a href="http://ogurtsov.github.io/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="http://ogurtsov.github.io/tag/opencv.html">opencv</a> <a href="http://ogurtsov.github.io/tag/python.html">python</a> <a href="http://ogurtsov.github.io/tag/vagrant.html">vagrant</a> </p>
+</footer><!-- /.post-info --><p>I use the following script to create an Ubuntu 15.04 Vagrant box with OpenCV with Python bindings support:</p>
+<div class="highlight"><pre><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+
+<span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;ubuntu/vivid64&quot;</span>
+  <span class="c1">#config.vm.network &quot;forwarded_port&quot;, guest: 8000, host: 8000</span>
+
+  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="o">&lt;&lt;-</span><span class="no">SHELL</span>
+
+<span class="sh">    version=&quot;$(wget -q -O - http://sourceforge.net/projects/opencvlibrary/files/opencv-unix | egrep -m1 -o &#39;\&quot;[0-9](\.[0-9])+&#39; | cut -c2-)&quot;</span>
+<span class="sh">    echo &quot;Installing OpenCV&quot; $version</span>
+<span class="sh">    mkdir OpenCV</span>
+<span class="sh">    cd OpenCV</span>
+<span class="sh">    echo &quot;Removing any pre-installed ffmpeg and x264&quot;</span>
+<span class="sh">    sudo apt-get -qq remove ffmpeg x264 libx264-dev</span>
+<span class="sh">    sudo add-apt-repository &quot;deb http://us.archive.ubuntu.com/ubuntu vivid main multiverse&quot;</span>
+<span class="sh">    sudo add-apt-repository &quot;deb http://us.archive.ubuntu.com/ubuntu precise main universe&quot;</span>
+<span class="sh">    sudo apt-get update</span>
+<span class="sh">    echo &quot;Installing Dependencies&quot;</span>
+<span class="sh">    sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg libxvidcore4</span>
+
+<span class="sh">    wget -O OpenCV-$version.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/$version/opencv-&quot;$version&quot;.zip/download</span>
+<span class="sh">    echo &quot;Installing OpenCV&quot; $version</span>
+<span class="sh">    unzip OpenCV-$version.zip</span>
+<span class="sh">    cd opencv-$version</span>
+<span class="sh">    mkdir build</span>
+<span class="sh">    cd build</span>
+<span class="sh">    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..</span>
+<span class="sh">    make -j2</span>
+<span class="sh">    sudo checkinstall</span>
+<span class="sh">    sudo sh -c &#39;echo &quot;/usr/local/lib&quot; &gt; /etc/ld.so.conf.d/opencv.conf&#39;</span>
+<span class="sh">    sudo ldconfig</span>
+
+<span class="sh">    echo &quot;OpenCV&quot; $version &quot;ready to be used&quot;</span>
+
+<span class="sh">    sudo apt-get install -y python-opencv</span>
+<span class="sh">    sudo ln /dev/null /dev/raw1394</span>
+
+<span class="no">  SHELL</span>
+
+<span class="k">end</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://ogurtsov.github.io/blog/2016/Extracting-background-from-a-video-using-OpenCV-and-Python.html" rel="bookmark"
+                           title="Permalink to Extracting background from a video using OpenCV and Python">Extracting background from a video using OpenCV and Python</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-01-08T23:34:00+01:00">
+                Published: Fri 08 January 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-01-08T23:34:00+01:00">
+                Updated: Fri 08 January 2016
         </abbr>
 
         <address class="vcard author">
@@ -36,7 +106,7 @@
         </address>
 <p>In <a href="http://ogurtsov.github.io/category/blog.html">Blog</a>.</p>
 <p>tags: <a href="http://ogurtsov.github.io/tag/opencv.html">opencv</a> <a href="http://ogurtsov.github.io/tag/python.html">python</a> </p>
-</footer><!-- /.post-info --><p>Input video example:</p>
+</footer><!-- /.post-info -->                <p>Input video example:</p>
 <p><a href="http://www.youtube.com/watch?v=Jjj-5OQiT-0"><img alt="Video" src="http://img.youtube.com/vi/Jjj-5OQiT-0/0.jpg" /></a></p>
 <p>Result:</p>
 <p><img alt="Photo" src="{attach}attached/bg.png" /></p>
@@ -61,48 +131,8 @@
 
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://ogurtsov.github.io/blog/2016/Vagrantfile-for-OpenCV-and-Python.html" rel="bookmark"
-                           title="Permalink to Vagrantfile for OpenCV and Python">Vagrantfile for OpenCV and Python</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-01-09T00:43:00+01:00">
-                Published: Sat 09 January 2016
-        </abbr>
-		<br />
-        <abbr class="modified" title="2016-01-09T00:43:00+01:00">
-                Updated: Sat 09 January 2016
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://ogurtsov.github.io/author/ogurtsov.html">ogurtsov</a>
-        </address>
-<p>In <a href="http://ogurtsov.github.io/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="http://ogurtsov.github.io/tag/opencv.html">opencv</a> <a href="http://ogurtsov.github.io/tag/python.html">python</a> <a href="http://ogurtsov.github.io/tag/vagrant.html">vagrant</a> </p>
-</footer><!-- /.post-info -->                <p>I use the following script to create an Ubuntu 15.04 Vagrant box with OpenCV with Python bindings support:</p>
-<div class="highlight"><pre><span class="c1"># -*- mode: ruby -*-</span>
-<span class="c1"># vi: set ft=ruby :</span>
-
-<span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;ubuntu/vivid64&quot;</span>
-  <span class="c1">#config.vm.network &quot;forwarded_port&quot;, guest: 8000, host: 8000</span>
-
-  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="o">&lt;&lt;-</span><span class="no">SHELL</span>
-
-<span class="sh">    version ...</span></pre></div>
-                <a class="readmore" href="http://ogurtsov.github.io/blog/2016/Vagrantfile-for-OpenCV-and-Python.html">read more</a>
+<span class="k">if ...</span></pre></div>
+                <a class="readmore" href="http://ogurtsov.github.io/blog/2016/Extracting-background-from-a-video-using-OpenCV-and-Python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
@@ -111,8 +141,11 @@
                 <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                            <li><a href="http://5pointers.com/">5Pointers</a></li>
+                            <li><a href="http://5pointers.com">5Pointers</a></li>
                             <li><a href="https://github.com/ogurtsov">Github</a></li>
+                            <li><a href="https://www.upwork.com/freelancers/~01f5159861ce9e4c0f">Upwork</a></li>
+                            <li><a href="https://500px.com/ogurtsov">500px</a></li>
+                            <li><a href="http://www.guru.com/freelancers/dmitry-ogurtsov">Guru</a></li>
                         </ul>
                 </div><!-- /.blogroll -->
         </section><!-- /#extras -->
